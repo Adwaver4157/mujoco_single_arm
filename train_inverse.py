@@ -8,6 +8,7 @@ import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR, LambdaLR
 import torchvision
 
+import os
 import wandb
 import argparse
 import numpy as np
@@ -96,10 +97,12 @@ if __name__=='__main__':
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--epoch', type=int, default=1000)
     parser.add_argument('--output-scale', type=float, default=1.)
+    parser.add_argument('--save-freq', type=int, default=10)
     parser.add_argument('--data-path', type=str, default='dataset/franka.pkl')
+    parser.add_argument('--save-dir', type=str, default='model')
     args = parser.parse_args()
 
-    wandb.init(project='inverse_kinematics')
+    wandb.init(project='inverse_kinematics', config=args)
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -124,6 +127,8 @@ if __name__=='__main__':
                                                            last_epoch=-1) """
 
     print('Training start...')
+    best_train_loss = np.inf
+    best_val_loss = np.inf
     for epoch in range(args.epoch):  # loop over the dataset multiple times
 
         running_loss = 0.0
@@ -159,4 +164,37 @@ if __name__=='__main__':
         scheduler.step()
         wandb.log({'epoch': epoch, 'train_loss': avg_loss, 'val_loss': avg_vloss, 'lr': lr})
         print(f'Epoch: {epoch}, Loss train: {avg_loss}, valid: {avg_vloss}, lr: {lr}')
+
+        os.makedirs(args.save_dir, exist_ok=True)
+        if avg_loss < best_train_loss:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': avg_loss,
+                }, os.path.join(args.save_dir, "best_train_model.pt"))
+            # https://docs.wandb.ai/guides/track/advanced/save-restore#saving-files
+            wandb.save(os.path.join(args.save_dir, "best_train_model.pt"), base_path=args.save_dir)
+            best_train_loss = avg_loss
+        if avg_vloss < best_val_loss:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': avg_vloss,
+                }, os.path.join(args.save_dir, "best_val_model.pt"))
+            # https://docs.wandb.ai/guides/track/advanced/save-restore#saving-files
+            wandb.save(os.path.join(args.save_dir, "best_val_model.pt"), base_path=args.save_dir)
+            best_val_loss = avg_vloss
+        if epoch % args.save_freq == 0:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': avg_vloss,
+                }, os.path.join(args.save_dir, f"model_{epoch}_{avg_vloss}.pt"))
+            # https://docs.wandb.ai/guides/track/advanced/save-restore#saving-files
+            # wandb.save(os.path.join(args.save_dir, f"model_{epoch}_{avg_vloss}.pt"), base_path=args.save_dir)
+
+
     print('Finished Training')

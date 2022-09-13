@@ -1,5 +1,6 @@
-dataset/
+__pycache__/
 wandb/
+model/
 .vscode/
 setting.sh
 MUJOCO_LOG.TXT
