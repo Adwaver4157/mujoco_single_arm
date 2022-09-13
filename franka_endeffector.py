@@ -14,7 +14,9 @@ def print_link_length(links):
     
 
 def get_endeffector_pos(data):
-    return data.xpos[11]
+    pos = (data.xpos[11] + data.xpos[12]) /  2
+    pos = np.concatenate([pos, data.xquat[10]])
+    return  pos
 
 if __name__=='__main__':
     print("Test the forward kinematics of franka robot.")
@@ -30,13 +32,16 @@ if __name__=='__main__':
         if viewer.is_alive:
             mujoco.mj_step(model, data)
             viewer.render()
-            # data.ctrl = [0, 0, 0, 0, 1.57079, 0, 0, 0]
-            data.ctrl = [np.pi/2, 0, 0, -1.57079, 0, 1.57079, -0.7853, 0]
-            links = []
+            data.ctrl = [0, 0, 0, 0, 0, 3.3, 0, 0]
+            # data.ctrl = [0, 0, 0, -1.57079, 0, 1.57079, -0.7853, 255]
+            """ links = []
             for i in range(len(data.xpos)-1):
                 links.append(get_link_length(data.xpos[i], data.xpos[i+1]))
-            print_link_length(links)
-            # print(data.xpos[11]) # print(data.xpos[12])
+            print_link_length(links) """
+            print(f'endeffector 1: {data.xpos[11]}')
+            print(f'endeffector 2: {data.xpos[12]}')
+            endeffector_pos = get_endeffector_pos(data)
+            print(f'endeffector_pose: {endeffector_pos}')
             # print(data.qpos[4], data.qpos[8])
         else:
             break

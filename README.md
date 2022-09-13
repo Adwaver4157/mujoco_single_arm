@@ -24,6 +24,11 @@ left: X+
 from front to back: Y+
 up: Z+
 
+Range (endeffector)
+X: -0.75 ~ 0.75
+Y: -0.75 ~ 0.75
+Z: 0.06 ~ 1.18
+
 ## Setup Docker environments
 ```
 # docker build -t adwaver4157/mujoco .
@@ -33,6 +38,19 @@ docker pull adwaver4157/mujoco
 
 ## (Optional) If you use this in server via ssh, you have to start VNC and then run python file 
 ```bash
+./RUN-DOCKER.sh username ssh
+```
+```bash
 vnc
-python franka.py
+python franka_test.py
+```
+
+## How to make robot dataset
+```bash
+python make_franka_dataset.py --file-name franka_10k.pkl
+```
+
+## How to train inverse kinematics predictor
+```bash
+python train_inverse.py --data-path dataset/franka_10k.pkl
 ```
