@@ -1,0 +1,39 @@
+<mujocoinclude>
+    <option timestep='0.0025' iterations="50" tolerance="1e-10" solver="Newton" jacobian="dense" cone="elliptic"/>
+
+    <asset>
+        <!-- night sky -->
+        <!-- <texture name="skybox" type="skybox" builtin="gradient" rgb1=".08 .09 .10" rgb2="0 0 0"
+               width="800" height="800" mark="random" markrgb=".8 .8 .8"/> -->
+        <texture type="skybox" builtin="gradient" rgb1=".50 .495 .48" rgb2=".50 .495 .48" width="32" height="32"/>
+        <texture name="T_table" type="cube" file="textures/wood2.png"/>
+
+        <material name="table_wood" texture="T_table" shininess=".3" specular="0.5"/>
+        <material name="table_col" rgba="0.3 0.3 1.0 0.5" shininess="0" specular="0"/>
+
+        <mesh file="../assets/tablebody.stl" name="tablebody" scale="1 1 1"/>
+        <mesh file="../assets/tabletop.stl" name="tabletop" scale="1 1 1"/>
+    </asset>
+
+    <visual>
+        <map fogstart="1.5" fogend="5" force="0.1" znear="0.01"/>
+        <quality shadowsize="4096" offsamples="4"/>
+
+        <headlight ambient="0.4 0.4 0.4"/>
+
+    </visual>
+
+    <worldbody>
+    
+        <body name="tablelink" pos="0 0 0">
+            <geom material="table_wood" group="1" type="box" size=".7 .4 .027" pos="0 0 0.9" conaffinity="0"
+                  contype="0"/>
+            <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.265" type="mesh" conaffinity="0"
+                  contype="0"/>
+            <!-- <geom material="table_col" group="4" pos="0.0 2.0 0" size="0.7 0.4 0.46" type="box" conaffinity="1"
+                  contype="0"/> -->
+        </body>
+
+    </worldbody>
+
+</mujocoinclude>
