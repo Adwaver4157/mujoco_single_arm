@@ -117,7 +117,8 @@
   </asset>
 
   <worldbody>
-    <body name="panda" pos="0 0 0.927">
+    <!-- <body name="panda" pos="0 0 0.927"> -->
+    <body name="panda" pos="0 0 1.854">
       <light name="top" pos="0 0 2" mode="trackcom"/>
       <body name="link0" childclass="panda">
         <inertial mass="0.629769" pos="-0.041018 -0.00014 0.049974"

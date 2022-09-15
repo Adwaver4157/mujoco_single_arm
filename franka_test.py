@@ -13,8 +13,8 @@ for _ in range(10000):
     if viewer.is_alive:
         mujoco.mj_step(model, data)
         viewer.render()
-        # data.ctrl = [0, 0, 0, 0, 0, 0, 0, 0]
-        data.ctrl = [0, 0, 0, -1.57079, 0, 1.57079, -0.7853, 255]
+        data.ctrl = [0, 2, 0, -1.57079, 0, 1.57079, -0.7853, 255]
+        # data.ctrl = [0, 0, 0, -1.57079, 0, 1.57079, -0.7853, 255]
         """ qpos = [0.0]*9
         qpos[5] = np.pi / 2
         qpos[6] = np.pi / 2

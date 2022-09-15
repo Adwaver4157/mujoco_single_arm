@@ -2,6 +2,7 @@
   
   <include file="panda.xml"/>
   <include file="table.xml"/>
+  <include file="block.xml"/>
 
   <statistic center="0.3 0 0.4" extent="1"/>
 
@@ -24,9 +25,18 @@
     <camera name="front" mode="targetbody" target="panda" pos="0 -3 3" />
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
-    <!-- <body name="target" pos="1 0 0">
-      <geom name="target" type="box" size=".1 .2 .3" rgba="0 .9 0 1" />
+    <!-- <body name="obj" pos="0 0.6 0.02">
+      <joint name="objjoint" type="free" limited='false' damping="0." armature="0."/>
+      <inertial pos="0 0 0" mass=".75" diaginertia="8.80012e-04 8.80012e-04 8.80012e-04"/>
+      <geom name="objGeom" type="cylinder" pos="0 0 0" solimp="0.99 0.99 0.01"
+            size="0.02 0.02" rgba="1 0 0 1" solref="0.01 1"
+            contype="1" conaffinity="1" friction="1 0.1 0.002" condim="4" material="block_wood"
+      />
     </body> -->
+    <body name="mybox" pos="0 0 5">
+      <geom name="mybox" type="box" size="0.1 0.1 0.1" mass="100"/>
+      <freejoint name="myfree"/>
+    </body>
     <site name="goal" pos="0 0 1" size="0.1"
             rgba="0 0 0 0"/>
   </worldbody>
