@@ -2,7 +2,8 @@
   
   <include file="panda.xml"/>
   <include file="table.xml"/>
-  <include file="block.xml"/>
+  <!-- <include file="simple_block.xml"/> -->
+  <!-- <include file="block.xml"/> -->
 
   <statistic center="0.3 0 0.4" extent="1"/>
 
@@ -22,7 +23,8 @@
   </asset>
 
   <worldbody>
-    <camera name="front" mode="targetbody" target="panda" pos="0 -3 3" />
+    <camera name="behind" mode="targetbody" target="panda" pos="0 -3 3" />
+    <camera name="front" mode="targetbody" target="panda" pos="0 3 3" />
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
     <!-- <body name="obj" pos="0 0.6 0.02">
@@ -34,7 +36,7 @@
       />
     </body> -->
     <body name="mybox" pos="0 0 5">
-      <geom name="mybox" type="box" size="0.1 0.1 0.1" mass="100"/>
+      <geom name="mybox" contype="1" conaffinity="1" type="box" size="0.1 0.1 0.1" mass="1"/>
       <freejoint name="myfree"/>
     </body>
     <site name="goal" pos="0 0 1" size="0.1"

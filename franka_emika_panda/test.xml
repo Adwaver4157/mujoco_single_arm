@@ -1,0 +1,18 @@
+<mujoco>
+   <worldbody>
+        <body name="tablelink" pos="0 0 0">
+            <geom group="1" type="box" size="1.4 .8 .054" pos="0 0 1.8" conaffinity="1"
+                  contype="1" mass="100"/>
+            <!-- <geom material="table_wood" group="1" type="box" size=".7 .4 .027" pos="0 0 0.9" conaffinity="0"
+                  contype="0"/> -->
+            <!-- <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.265" type="mesh" conaffinity="0"
+                  contype="0"/> -->
+        </body>
+        <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>    
+        <geom type="plane" size="1 1 0.1" rgba=".9 0 0 1"/>
+        <body pos="0 0 5">
+            <joint type="free"/>
+            <geom type="box" size=".1 .2 .3" rgba="0 .9 0 1"/>
+        </body>
+   </worldbody>
+</mujoco>

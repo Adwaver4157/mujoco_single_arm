@@ -118,7 +118,7 @@
 
   <worldbody>
     <!-- <body name="panda" pos="0 0 0.927"> -->
-    <body name="panda" pos="0 0 1.854">
+    <body name="panda" pos="0 -0.7 1.854" quat="1 0 0 1">
       <light name="top" pos="0 0 2" mode="trackcom"/>
       <body name="link0" childclass="panda">
         <inertial mass="0.629769" pos="-0.041018 -0.00014 0.049974"
@@ -212,6 +212,8 @@
                       <geom mesh="link7_c" class="collision"/>
                       <body name="link8" pos="0 0 0.107">
                         <body name="hand" quat="0.9238795 0 0 -0.3826834">
+                          <!-- <camera name="hand" mode="fixed" pos="0 1 -0.5" axisangle="1 0 0 3.14"/> -->
+                          <camera name="hand" mode="fixed" pos="0 0 0.04" euler="3.14 0 -1.57"/>
                           <inertial mass="0.73" pos="-0.01 0 0.03"
                               diaginertia="0.001 0.0025 0.0017"/>
                           <geom mesh="hand_0" material="off_white" class="visual"/>
@@ -293,7 +295,11 @@
   </actuator>
 
   <keyframe>
-    <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0.04 0.04"
+    <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0.04 0.04 0 0 0 0 0 0 0"
         ctrl="0 0 0 -1.57079 0 1.57079 -0.7853 255"/>
   </keyframe>
+  <!-- <keyframe>
+    <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0.04 0.04"
+        ctrl="0 0 0 -1.57079 0 1.57079 -0.7853 255"/>
+  </keyframe> -->
 </mujoco>

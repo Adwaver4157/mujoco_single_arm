@@ -11,7 +11,7 @@
         <material name="table_wood" texture="T_table" shininess=".3" specular="0.5"/>
         <material name="table_col" rgba="0.3 0.3 1.0 0.5" shininess="0" specular="0"/>
 
-        <mesh file="../assets/tablebody.stl" name="tablebody" scale="2 2 2"/>
+        <mesh file="../assets/tablebody.stl" name="tablebody" scale="2 3 2"/>
         <!-- <mesh file="../assets/tablebody.stl" name="tablebody" scale="1 1 1"/> -->
     </asset>
 
@@ -26,12 +26,10 @@
     <worldbody>
     
         <body name="tablelink" pos="0 0 0">
-            <!-- <geom material="table_wood" group="1" type="box" size="1.4 .8 .054" pos="0 0 1.8" conaffinity="0"
-                  contype="0"/> -->
-            <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.53" type="mesh"  conaffinity="0"
-                  contype="0"/>
-            <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.53" type="mesh" conaffinity="0"
-                  contype="0"/>
+            <geom material="table_wood" group="1" type="box" size="1.4 1.2 .054" pos="0 0 1.8" conaffinity="1"
+                  contype="1" mass="100"/>
+            <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.53" type="mesh"  conaffinity="1"
+                  contype="1" mass="100"/>
             <!-- <geom material="table_wood" group="1" type="box" size=".7 .4 .027" pos="0 0 0.9" conaffinity="0"
                   contype="0"/> -->
             <!-- <geom material="table_wood" group="1" mesh="tablebody" pos="0 0 0.265" type="mesh" conaffinity="0"
